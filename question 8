@@ -1,0 +1,31 @@
+mysql> select faculty.FacNo, Faculty.FacName, departments.deptNo, Departments.DeptName from faculty cross join departments;
++-------+---------+--------+----------+
+| FacNo | FacName | deptNo | DeptName |
++-------+---------+--------+----------+
+|     1 | Sam     |      1 | AI       |
+|     2 | Smitha  |      1 | AI       |
+|     3 | Smith   |      1 | AI       |
+|     4 | Aana    |      1 | AI       |
+|     1 | Sam     |      2 | CSC      |
+|     2 | Smitha  |      2 | CSC      |
+|     3 | Smith   |      2 | CSC      |
+|     4 | Aana    |      2 | CSC      |
+|     1 | Sam     |      3 | IT       |
+|     2 | Smitha  |      3 | IT       |
+|     3 | Smith   |      3 | IT       |
+|     4 | Aana    |      3 | IT       |
+|     1 | Sam     |      4 | ECE      |
+|     2 | Smitha  |      4 | ECE      |
+|     3 | Smith   |      4 | ECE      |
+|     4 | Aana    |      4 | ECE      |
++-------+---------+--------+----------+
+16 rows in set (0.00 sec)
+
+
+mysql> select student.RegNo, student.Name, course.course_sub, course.marks from student inner join course on student.DOB=course.assesment;
++-------+------+------------+-------+
+| RegNo | Name | course_sub | marks |
++-------+------+------------+-------+
+|   123 | Sam  | AI         |    58 |
++-------+------+------------+-------+
+1 row in set (0.00 sec)
