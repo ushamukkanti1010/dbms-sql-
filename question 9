@@ -1,0 +1,23 @@
+mysql> create table customers(Id int(10), Name varchar(30), Salary int);
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> insert into customers values(1, "Muffy", 50000);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into customers values(2, "John", 70000);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into customers values(3, "Jackson", 80000);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from customers;
++------+---------+--------+
+| Id   | Name    | Salary |
++------+---------+--------+
+|    1 | Muffy   |  50000 |
+|    2 | John    |  70000 |
+|    3 | Jackson |  80000 |
++------+---------+--------+
+
+mysql> create view customers_view as select name, salary from customers;
+Query OK, 0 rows affected (0.13 sec)
