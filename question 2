@@ -1,0 +1,154 @@
+mysql> use dataa;
+Database changed
+mysql> insert into faculty("a", "Anu", "F", 3.11.1990, 9.21.2002, 5666
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"a", "Anu", "F", 3.11.1990, 9.21.2002, 5666
+)' at line 1
+mysql> insert into faculty("A", "Anu", "F", 11, 16, 542688);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"A", "Anu", "F", 11, 16, 542688)' at line 1
+mysql> insert into faculty valuues("A", "Anu", "F", 11, 16, 542688);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'valuues("A", "Anu", "F", 11, 16, 542688)' at line 1
+mysql> insert into faculty values("A", "Anu", "F", 11, 16, 522412);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> describe faculty;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| FacNo    | int(3)      | NO   | PRI | NULL    |       |
+| FacName  | varchar(15) | YES  |     | NULL    |       |
+| Gender   | varchar(1)  | YES  |     | NULL    |       |
+| DOB      | int(11)     | NO   |     | NULL    |       |
+| DOJ      | int(10)     | NO   |     | NULL    |       |
+| MobileNo | int(10)     | NO   |     | NULL    |       |
+| DeptNo   | varchar(4)  | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+7 rows in set (0.09 sec)
+
+mysql> insert into faculty values(142, "Anu", "F", 12, 10, 153486, "AI");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from faculty;
++-------+---------+--------+-----+-----+----------+--------+
+| FacNo | FacName | Gender | DOB | DOJ | MobileNo | DeptNo |
++-------+---------+--------+-----+-----+----------+--------+
+|   142 | Anu     | F      |  12 |  10 |   153486 | AI     |
++-------+---------+--------+-----+-----+----------+--------+
+1 row in set (0.03 sec)
+
+mysql> describe student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| RegNo    | int(3)      | NO   | PRI | NULL    |       |
+| Name     | varchar(30) | YES  |     | NULL    |       |
+| Gender   | varchar(1)  | YES  |     | NULL    |       |
+| DOB      | int(11)     | NO   |     | NULL    |       |
+| MobileNo | int(10)     | YES  |     | NULL    |       |
+| City     | varchar(15) | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.03 sec)
+
+mysql> insert into student values(321, "Anu", "F", 14, 555211, "Chennai");
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into student values(123, "Aman", "M", 10, 5462
+    -> ,"Chennai");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from student;
++-------+------+--------+-----+----------+---------+
+| RegNo | Name | Gender | DOB | MobileNo | City    |
++-------+------+--------+-----+----------+---------+
+|   123 | Aman | M      |  10 |     5462 | Chennai |
+|   321 | Anu  | F      |  14 |   555211 | Chennai |
++-------+------+--------+-----+----------+---------+
+2 rows in set (0.00 sec)
+
+mysql> update student set RegNo=123 where name='shiva';
+Query OK, 0 rows affected (0.34 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from student;
++-------+------+--------+-----+----------+---------+
+| RegNo | Name | Gender | DOB | MobileNo | City    |
++-------+------+--------+-----+----------+---------+
+|   123 | Aman | M      |  10 |     5462 | Chennai |
+|   321 | Anu  | F      |  14 |   555211 | Chennai |
++-------+------+--------+-----+----------+---------+
+2 rows in set (0.02 sec)
+
+mysql> update student set name='shiva' where RegNo=123;
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student;
++-------+-------+--------+-----+----------+---------+
+| RegNo | Name  | Gender | DOB | MobileNo | City    |
++-------+-------+--------+-----+----------+---------+
+|   123 | shiva | M      |  10 |     5462 | Chennai |
+|   321 | Anu   | F      |  14 |   555211 | Chennai |
++-------+-------+--------+-----+----------+---------+
+2 rows in set (0.00 sec)
+
+mysql> describe faculty;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| FacNo    | int(3)      | NO   | PRI | NULL    |       |
+| FacName  | varchar(15) | YES  |     | NULL    |       |
+| Gender   | varchar(1)  | YES  |     | NULL    |       |
+| DOB      | int(11)     | NO   |     | NULL    |       |
+| DOJ      | int(10)     | NO   |     | NULL    |       |
+| MobileNo | int(10)     | NO   |     | NULL    |       |
+| DeptNo   | varchar(4)  | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+7 rows in set (0.02 sec)
+
+mysql> insert into faculty values(1, "Anu", "F", 10, 7, 2335, "AI");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> delete from faculty where FacName='anu';
+Query OK, 2 rows affected (0.12 sec)
+
+mysql> select * from faculty;
+Empty set (0.00 sec)
+
+mysql> update student set name='anu'where RegNo=123;
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student;
++-------+------+--------+-----+----------+---------+
+| RegNo | Name | Gender | DOB | MobileNo | City    |
++-------+------+--------+-----+----------+---------+
+|   123 | anu  | M      |  10 |     5462 | Chennai |
+|   321 | Anu  | F      |  14 |   555211 | Chennai |
++-------+------+--------+-----+----------+---------+
+2 rows in set (0.00 sec)
+
+mysql> delete from student where gender='m';
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from student;
++-------+------+--------+-----+----------+---------+
+| RegNo | Name | Gender | DOB | MobileNo | City    |
++-------+------+--------+-----+----------+---------+
+|   321 | Anu  | F      |  14 |   555211 | Chennai |
++-------+------+--------+-----+----------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from student, faculty;
+Empty set (0.02 sec)
+
+mysql> select * from student;
++-------+------+--------+-----+----------+---------+
+| RegNo | Name | Gender | DOB | MobileNo | City    |
++-------+------+--------+-----+----------+---------+
+|   321 | Anu  | F      |  14 |   555211 | Chennai |
++-------+------+--------+-----+----------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from faculty;
+Empty set (0.00 sec)
+
+mysql>
