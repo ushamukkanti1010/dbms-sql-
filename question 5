@@ -1,0 +1,55 @@
+mysql> select course_sub, sum(courseno) as courseno from course group by course_sub;
++---------------+----------+
+| course_sub    | courseno |
++---------------+----------+
+| AI            |        4 |
+| C Programming |        2 |
+| DBMS          |        2 |
+| Maths         |        6 |
+| OS            |        3 |
++---------------+----------+
+5 rows in set (0.09 sec)
+
+mysql> select * from student;
++-------+--------+--------+-----+----------+---------+
+| RegNo | Name   | Gender | DOB | MobileNo | City    |
++-------+--------+--------+-----+----------+---------+
+|   123 | Sam    | M      |  10 |    45312 | Mumbai  |
+|   321 | Anu    | F      |  14 |   555211 | Chennai |
+|   543 | John   | M      |  20 |   452352 | Chennai |
+|   789 | Smitha | F      |  30 |  4245312 | Pune    |
++-------+--------+--------+-----+----------+---------+
+4 rows in set (0.05 sec)
+
+mysql> select name, gender, mobileno from student order by regno;
++--------+--------+----------+
+| name   | gender | mobileno |
++--------+--------+----------+
+| Sam    | M      |    45312 |
+| Anu    | F      |   555211 |
+| John   | M      |   452352 |
+| Smitha | F      |  4245312 |
++--------+--------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from faculty;
++-------+---------+--------+-----+-----+----------+--------+
+| FacNo | FacName | Gender | DOB | DOJ | MobileNo | DeptNo |
++-------+---------+--------+-----+-----+----------+--------+
+|     1 | Sam     | M      |  10 |  12 |   452368 | AI     |
+|     2 | Smitha  | F      |  20 |   2 |   452538 | CSC    |
+|     3 | Smith   | M      |  30 |   4 |    45318 | IT     |
+|     4 | Aana    | F      |  90 |   6 |    45898 | EEE    |
++-------+---------+--------+-----+-----+----------+--------+
+4 rows in set (0.04 sec)
+
+mysql> select * from faculty order by DOB DESC;
++-------+---------+--------+-----+-----+----------+--------+
+| FacNo | FacName | Gender | DOB | DOJ | MobileNo | DeptNo |
++-------+---------+--------+-----+-----+----------+--------+
+|     4 | Aana    | F      |  90 |   6 |    45898 | EEE    |
+|     3 | Smith   | M      |  30 |   4 |    45318 | IT     |
+|     2 | Smitha  | F      |  20 |   2 |   452538 | CSC    |
+|     1 | Sam     | M      |  10 |  12 |   452368 | AI     |
++-------+---------+--------+-----+-----+----------+--------+
+4 rows in set (0.05 sec)
