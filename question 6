@@ -1,72 +1,96 @@
-mysql> select * from course where marks>(select avg(marks) from course);
-+----------+-----------+---------------+-------+
-| courseno | RegNo     | course_Sub    | marks |
-+----------+-----------+---------------+-------+
-|        2 | 192124132 | C Programming |    82 |
-|        1 | 192124145 | Maths         |    97 |
-|        5 | 192124166 | Maths         |    88 |
-+----------+-----------+---------------+-------+
-3 rows in set (0.05 sec)
+mysql> use sse;
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_sse |
++---------------+
+| bin           |
+| empdepartment |
+| empdept       |
+| employee      |
+| mentees       |
+| student       |
+| studepartment |
+| t             |
++---------------+
+8 rows in set (0.01 sec)
+mysql> alter table mentees add subject varchar(20);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
 
-mysql> alter table course
-    -> add column assesment int(20);
-Query OK, 6 rows affected (0.44 sec)
-Records: 6  Duplicates: 0  Warnings: 0
+mysql> update mentees set subject="PDSD" where Dept="ECE";
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
 
-mysql> describe course;
-+------------+-------------+------+-----+---------+-------+
-| Field      | Type        | Null | Key | Default | Extra |
-+------------+-------------+------+-----+---------+-------+
-| courseno   | int(11)     | YES  |     | NULL    |       |
-| RegNo      | int(10)     | NO   | PRI | NULL    |       |
-| course_Sub | varchar(30) | NO   |     | NULL    |       |
-| marks      | int(20)     | NO   |     | NULL    |       |
-| assesment  | int(20)     | YES  |     | NULL    |       |
-+------------+-------------+------+-----+---------+-------+
-5 rows in set (0.07 sec)
+mysql> update mentees set subject="DBMS" where Dept="CSE";
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
 
-mysql> insert into course value(3, 192124133, "AI", 58, 10);
-Query OK, 1 row affected (0.03 sec)
+mysql> update mentees set subject="BIOEVS" where Dept="BME";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
 
-mysql> insert into course value(5, 192124177, "IT", 28, 16);
-Query OK, 1 row affected (0.05 sec)
-
-mysql> insert into course value(4, 192124199, "IT", 49, 13);
-Query OK, 1 row affected (0.08 sec)
-
-mysql> select * from course;
-+----------+-----------+---------------+-------+-----------+
-| courseno | RegNo     | course_Sub    | marks | assesment |
-+----------+-----------+---------------+-------+-----------+
-|        4 | 192124112 | AI            |    75 |      NULL |
-|        2 | 192124132 | C Programming |    82 |      NULL |
-|        3 | 192124133 | AI            |    58 |        10 |
-|        1 | 192124145 | Maths         |    97 |      NULL |
-|        5 | 192124166 | Maths         |    88 |      NULL |
-|        5 | 192124177 | IT            |    28 |        16 |
-|        2 | 192124187 | DBMS          |    67 |      NULL |
-|        3 | 192124193 | OS            |    69 |      NULL |
-|        4 | 192124199 | IT            |    49 |        13 |
-+----------+-----------+---------------+-------+-----------+
-9 rows in set (0.00 sec)
-
-mysql> select * from course where assesment>1;
-+----------+-----------+------------+-------+-----------+
-| courseno | RegNo     | course_Sub | marks | assesment |
-+----------+-----------+------------+-------+-----------+
-|        3 | 192124133 | AI         |    58 |        10 |
-|        5 | 192124177 | IT         |    28 |        16 |
-|        4 | 192124199 | IT         |    49 |        13 |
-+----------+-----------+------------+-------+-----------+
-3 rows in set (0.00 sec)
-
-mysql> select * from faculty;
-+-------+---------+--------+-----+-----+----------+--------+
-| FacNo | FacName | Gender | DOB | DOJ | MobileNo | DeptNo |
-+-------+---------+--------+-----+-----+----------+--------+
-|     1 | Sam     | M      |  10 |  12 |   452368 | AI     |
-|     2 | Smitha  | F      |  20 |   2 |   452538 | CSC    |
-|     3 | Smith   | M      |  30 |   4 |    45318 | IT     |
-|     4 | Aana    | F      |  90 |   6 |    45898 | EEE    |
-+-------+---------+--------+-----+-----+----------+--------+
+mysql> select*from mentees;
++-----------+---------+------+---------+------------+-------+---------+
+| Regno     | Name    | Dept | Address | Fathername | Marks | subject |
++-----------+---------+------+---------+------------+-------+---------+
+| 192011090 | Gowtham | CSE  | Chennai | moorthi    |    99 | DBMS    |
+| 192011079 | arun    | BME  | nellore | muthu      |    91 | BIOEVS  |
+| 192011095 | Harish  | ECE  | Madurai | Kannan     |    95 | PDSD    |
+| 192211080 | Dhivya  | ECE  | Tirupur | Ramesh     |    91 | PDSD    |
++-----------+---------+------+---------+------------+-------+---------+
 4 rows in set (0.00 sec)
+mysql> select*from mentees where Marks BETWEEN 95 and 99;
++-----------+---------+------+---------+------------+-------+---------+
+| Regno     | Name    | Dept | Address | Fathername | Marks | subject |
++-----------+---------+------+---------+------------+-------+---------+
+| 192011090 | Gowtham | CSE  | Chennai | moorthi    |    99 | DBMS    |
+| 192011095 | Harish  | ECE  | Madurai | Kannan     |    95 | PDSD    |
++-----------+---------+------+---------+------------+-------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select*from mentees where subject IN('BIOEVS');
++-----------+------+------+---------+------------+-------+---------+
+| Regno     | Name | Dept | Address | Fathername | Marks | subject |
++-----------+------+------+---------+------------+-------+---------+
+| 192011079 | arun | BME  | nellore | muthu      |    91 | BIOEVS  |
++-----------+------+------+---------+------------+-------+---------+
+1 row in set (0.00 sec)
+mysql> select*from mentees where Marks NOT BETWEEN 95 and 99;
++-----------+--------+------+---------+------------+-------+---------+
+| Regno     | Name   | Dept | Address | Fathername | Marks | subject |
++-----------+--------+------+---------+------------+-------+---------+
+| 192011079 | arun   | BME  | nellore | muthu      |    91 | BIOEVS  |
+| 192211080 | Dhivya | ECE  | Tirupur | Ramesh     |    91 | PDSD    |
++-----------+--------+------+---------+------------+-------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select sum(Marks) from mentees where Dept="ECE";
++------------+
+| sum(Marks) |
++------------+
+|        186 |
++------------+
+1 row in set (0.01 sec)
+mysql> select avg(Marks) as Average from mentees;
++---------+
+| Average |
++---------+
+| 94.0000 |
++---------+
+1 row in set (0.00 sec)
+mysql> select min(Marks) as minimum from mentees;
++---------+
+| minimum |
++---------+
+|      91 |
++---------+
+1 row in set (0.01 sec)
+
+mysql> select max(Marks) as maximum from mentees;
++---------+
+| maximum |
++---------+
+|      99 |
++---------+
+1 row in set (0.00 sec)
