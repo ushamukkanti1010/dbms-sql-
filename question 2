@@ -1,154 +1,95 @@
-mysql> use dataa;
+mysql> use sse;
 Database changed
-mysql> insert into faculty("a", "Anu", "F", 3.11.1990, 9.21.2002, 5666
-    -> );
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"a", "Anu", "F", 3.11.1990, 9.21.2002, 5666
-)' at line 1
-mysql> insert into faculty("A", "Anu", "F", 11, 16, 542688);
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"A", "Anu", "F", 11, 16, 542688)' at line 1
-mysql> insert into faculty valuues("A", "Anu", "F", 11, 16, 542688);
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'valuues("A", "Anu", "F", 11, 16, 542688)' at line 1
-mysql> insert into faculty values("A", "Anu", "F", 11, 16, 522412);
-ERROR 1136 (21S01): Column count doesn't match value count at row 1
-mysql> describe faculty;
+mysql> show tables;
++---------------+
+| Tables_in_sse |
++---------------+
+| bin           |
+| empdepartment |
+| empdept       |
+| employee      |
+| student       |
+| studepartment |
+| t             |
++---------------+
+7 rows in set (0.00 sec)
+
+mysql> desc student;
 +----------+-------------+------+-----+---------+-------+
 | Field    | Type        | Null | Key | Default | Extra |
 +----------+-------------+------+-----+---------+-------+
-| FacNo    | int(3)      | NO   | PRI | NULL    |       |
-| FacName  | varchar(15) | YES  |     | NULL    |       |
-| Gender   | varchar(1)  | YES  |     | NULL    |       |
-| DOB      | int(11)     | NO   |     | NULL    |       |
-| DOJ      | int(10)     | NO   |     | NULL    |       |
-| MobileNo | int(10)     | NO   |     | NULL    |       |
-| DeptNo   | varchar(4)  | NO   |     | NULL    |       |
+| Rollno   | int         | YES  |     | NULL    |       |
+| Name     | varchar(20) | YES  |     | NULL    |       |
+| Gender   | char(1)     | YES  |     | NULL    |       |
+| DOB      | varchar(10) | YES  |     | NULL    |       |
+| Mobileno | int         | YES  |     | NULL    |       |
+| City     | varchar(20) | YES  |     | NULL    |       |
+| District | varchar(20) | YES  |     | NULL    |       |
+| dept     | varchar(5)  | YES  |     | NULL    |       |
 +----------+-------------+------+-----+---------+-------+
-7 rows in set (0.09 sec)
+8 rows in set (0.00 sec)
 
-mysql> insert into faculty values(142, "Anu", "F", 12, 10, 153486, "AI");
-Query OK, 1 row affected (0.12 sec)
-
-mysql> select * from faculty;
-+-------+---------+--------+-----+-----+----------+--------+
-| FacNo | FacName | Gender | DOB | DOJ | MobileNo | DeptNo |
-+-------+---------+--------+-----+-----+----------+--------+
-|   142 | Anu     | F      |  12 |  10 |   153486 | AI     |
-+-------+---------+--------+-----+-----+----------+--------+
-1 row in set (0.03 sec)
-
-mysql> describe student;
+mysql> desc studepartment;
 +----------+-------------+------+-----+---------+-------+
 | Field    | Type        | Null | Key | Default | Extra |
 +----------+-------------+------+-----+---------+-------+
-| RegNo    | int(3)      | NO   | PRI | NULL    |       |
-| Name     | varchar(30) | YES  |     | NULL    |       |
-| Gender   | varchar(1)  | YES  |     | NULL    |       |
-| DOB      | int(11)     | NO   |     | NULL    |       |
-| MobileNo | int(10)     | YES  |     | NULL    |       |
-| City     | varchar(15) | NO   |     | NULL    |       |
+| Deptid   | int         | YES  |     | NULL    |       |
+| Deptname | varchar(20) | YES  |     | NULL    |       |
+| Rollno   | int         | YES  |     | NULL    |       |
 +----------+-------------+------+-----+---------+-------+
-6 rows in set (0.03 sec)
+3 rows in set (0.00 sec)
 
-mysql> insert into student values(321, "Anu", "F", 14, 555211, "Chennai");
-Query OK, 1 row affected (0.08 sec)
+mysql> alter table student add primary key(Rollno);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
 
-mysql> insert into student values(123, "Aman", "M", 10, 5462
-    -> ,"Chennai");
-Query OK, 1 row affected (0.07 sec)
-
-mysql> select * from student;
-+-------+------+--------+-----+----------+---------+
-| RegNo | Name | Gender | DOB | MobileNo | City    |
-+-------+------+--------+-----+----------+---------+
-|   123 | Aman | M      |  10 |     5462 | Chennai |
-|   321 | Anu  | F      |  14 |   555211 | Chennai |
-+-------+------+--------+-----+----------+---------+
-2 rows in set (0.00 sec)
-
-mysql> update student set RegNo=123 where name='shiva';
-Query OK, 0 rows affected (0.34 sec)
-Rows matched: 0  Changed: 0  Warnings: 0
-
-mysql> select * from student;
-+-------+------+--------+-----+----------+---------+
-| RegNo | Name | Gender | DOB | MobileNo | City    |
-+-------+------+--------+-----+----------+---------+
-|   123 | Aman | M      |  10 |     5462 | Chennai |
-|   321 | Anu  | F      |  14 |   555211 | Chennai |
-+-------+------+--------+-----+----------+---------+
-2 rows in set (0.02 sec)
-
-mysql> update student set name='shiva' where RegNo=123;
-Query OK, 1 row affected (0.13 sec)
-Rows matched: 1  Changed: 1  Warnings: 0
-
-mysql> select * from student;
-+-------+-------+--------+-----+----------+---------+
-| RegNo | Name  | Gender | DOB | MobileNo | City    |
-+-------+-------+--------+-----+----------+---------+
-|   123 | shiva | M      |  10 |     5462 | Chennai |
-|   321 | Anu   | F      |  14 |   555211 | Chennai |
-+-------+-------+--------+-----+----------+---------+
-2 rows in set (0.00 sec)
-
-mysql> describe faculty;
+mysql> desc student;
 +----------+-------------+------+-----+---------+-------+
 | Field    | Type        | Null | Key | Default | Extra |
 +----------+-------------+------+-----+---------+-------+
-| FacNo    | int(3)      | NO   | PRI | NULL    |       |
-| FacName  | varchar(15) | YES  |     | NULL    |       |
-| Gender   | varchar(1)  | YES  |     | NULL    |       |
-| DOB      | int(11)     | NO   |     | NULL    |       |
-| DOJ      | int(10)     | NO   |     | NULL    |       |
-| MobileNo | int(10)     | NO   |     | NULL    |       |
-| DeptNo   | varchar(4)  | NO   |     | NULL    |       |
+| Rollno   | int         | NO   | PRI | NULL    |       |
+| Name     | varchar(20) | YES  |     | NULL    |       |
+| Gender   | char(1)     | YES  |     | NULL    |       |
+| DOB      | varchar(10) | YES  |     | NULL    |       |
+| Mobileno | int         | YES  |     | NULL    |       |
+| City     | varchar(20) | YES  |     | NULL    |       |
+| District | varchar(20) | YES  |     | NULL    |       |
+| dept     | varchar(5)  | YES  |     | NULL    |       |
 +----------+-------------+------+-----+---------+-------+
-7 rows in set (0.02 sec)
+8 rows in set (0.01 sec)
 
-mysql> insert into faculty values(1, "Anu", "F", 10, 7, 2335, "AI");
-Query OK, 1 row affected (0.05 sec)
+mysql> alter table studepartment add foreign key(Rollno) references student(Rollno);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
 
-mysql> delete from faculty where FacName='anu';
-Query OK, 2 rows affected (0.12 sec)
+mysql> desc studepartment;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Deptid   | int         | YES  |     | NULL    |       |
+| Deptname | varchar(20) | YES  |     | NULL    |       |
+| Rollno   | int         | YES  | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
 
-mysql> select * from faculty;
-Empty set (0.00 sec)
+mysql>alter table student add unique(Rollno);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
 
-mysql> update student set name='anu'where RegNo=123;
-Query OK, 1 row affected (0.09 sec)
-Rows matched: 1  Changed: 1  Warnings: 0
-
-mysql> select * from student;
-+-------+------+--------+-----+----------+---------+
-| RegNo | Name | Gender | DOB | MobileNo | City    |
-+-------+------+--------+-----+----------+---------+
-|   123 | anu  | M      |  10 |     5462 | Chennai |
-|   321 | Anu  | F      |  14 |   555211 | Chennai |
-+-------+------+--------+-----+----------+---------+
-2 rows in set (0.00 sec)
-
-mysql> delete from student where gender='m';
-Query OK, 1 row affected (0.07 sec)
-
-mysql> select * from student;
-+-------+------+--------+-----+----------+---------+
-| RegNo | Name | Gender | DOB | MobileNo | City    |
-+-------+------+--------+-----+----------+---------+
-|   321 | Anu  | F      |  14 |   555211 | Chennai |
-+-------+------+--------+-----+----------+---------+
-1 row in set (0.00 sec)
-
-mysql> select * from student, faculty;
-Empty set (0.02 sec)
-
-mysql> select * from student;
-+-------+------+--------+-----+----------+---------+
-| RegNo | Name | Gender | DOB | MobileNo | City    |
-+-------+------+--------+-----+----------+---------+
-|   321 | Anu  | F      |  14 |   555211 | Chennai |
-+-------+------+--------+-----+----------+---------+
-1 row in set (0.00 sec)
-
-mysql> select * from faculty;
-Empty set (0.00 sec)
-
-mysql>
+mysql> desc student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Rollno   | int         | NO   | PRI | NULL    |       |
+| Name     | varchar(20) | YES  |     | NULL    |       |
+| Gender   | char(1)     | YES  |     | NULL    |       |
+| DOB      | varchar(10) | YES  |     | NULL    |       |
+| Mobileno | int         | YES  |     | NULL    |       |
+| City     | varchar(20) | YES  |     | NULL    |       |
+| District | varchar(20) | YES  |     | NULL    |       |
+| dept     | varchar(5)  | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+mysql>alter table student add check(age>=15);
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
