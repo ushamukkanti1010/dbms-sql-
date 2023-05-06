@@ -1,31 +1,59 @@
-mysql> select faculty.FacNo, Faculty.FacName, departments.deptNo, Departments.DeptName from faculty cross join departments;
-+-------+---------+--------+----------+
-| FacNo | FacName | deptNo | DeptName |
-+-------+---------+--------+----------+
-|     1 | Sam     |      1 | AI       |
-|     2 | Smitha  |      1 | AI       |
-|     3 | Smith   |      1 | AI       |
-|     4 | Aana    |      1 | AI       |
-|     1 | Sam     |      2 | CSC      |
-|     2 | Smitha  |      2 | CSC      |
-|     3 | Smith   |      2 | CSC      |
-|     4 | Aana    |      2 | CSC      |
-|     1 | Sam     |      3 | IT       |
-|     2 | Smitha  |      3 | IT       |
-|     3 | Smith   |      3 | IT       |
-|     4 | Aana    |      3 | IT       |
-|     1 | Sam     |      4 | ECE      |
-|     2 | Smitha  |      4 | ECE      |
-|     3 | Smith   |      4 | ECE      |
-|     4 | Aana    |      4 | ECE      |
-+-------+---------+--------+----------+
-16 rows in set (0.00 sec)
+ mysql> use sse;
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_sse |
++---------------+
+| bin           |
+| empdepartment |
+| empdept       |
+| employee      |
+| mentees       |
+| student       |
+| studepartment |
+| t             |
++---------------+
+8 rows in set (0.01 sec)
+mysql> select*from mentees;
++-----------+---------+------+---------+------------+-------+---------+
+| Regno     | Name    | Dept | Address | Fathername | Marks | subject |
++-----------+---------+------+---------+------------+-------+---------+
+| 192011090 | Gowtham | CSE  | Chennai | moorthi    |    99 | DBMS    |
+| 192011079 | arun    | BME  | nellore | muthu      |    91 | BIOEVS  |
+| 192011095 | Harish  | ECE  | Madurai | Kannan     |    95 | PDSD    |
+| 192211080 | Dhivya  | ECE  | Tirupur | Ramesh     |    91 | PDSD    |
++-----------+---------+------+---------+------------+-------+---------+
+4 rows in set (0.00 sec)
+mysql> select Regno,Name from mentees where Name IN(select Name from mentees where Dept="ECE");
++-----------+--------+
+| Regno     | Name   |
++-----------+--------+
+| 192011095 | Harish |
+| 192211080 | Dhivya |
++-----------+--------+
+2 rows in set (0.01 sec)
 
+mysql> create table mentees1(Id int(10),Name varchar(20));
+Query OK, 0 rows affected, 1 warning (0.04 sec)
 
-mysql> select student.RegNo, student.Name, course.course_sub, course.marks from student inner join course on student.DOB=course.assesment;
-+-------+------+------------+-------+
-| RegNo | Name | course_sub | marks |
-+-------+------+------------+-------+
-|   123 | Sam  | AI         |    58 |
-+-------+------+------------+-------+
+mysql> insert into mentees1(Id,Name)
+    -> select Regno,Name
+    -> from mentees where Dept="ECE";
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select*from mentees1;
++-----------+--------+
+| Id        | Name   |
++-----------+--------+
+| 192011095 | Harish |
+| 192211080 | Dhivya |
++-----------+--------+
+2 rows in set (0.00 sec)
+mysql> select Regno,(select Name from mentees1 where Id=192011095)as Name,Dept,Address,Fathername,Marks,subject from mentees where Regno=192011095;
++-----------+--------+------+---------+------------+-------+---------+
+| Regno     | Name   | Dept | Address | Fathername | Marks | subject |
++-----------+--------+------+---------+------------+-------+---------+
+| 192011095 | Harish | ECE  | Madurai | Kannan     |    95 | PDSD    |
++-----------+--------+------+---------+------------+-------+---------+
 1 row in set (0.00 sec)
