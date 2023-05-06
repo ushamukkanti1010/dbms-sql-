@@ -1,34 +1,63 @@
-mysql> select * from faculty order by DOJ limit 2;
-+-------+---------+--------+-----+-----+----------+--------+
-| FacNo | FacName | Gender | DOB | DOJ | MobileNo | DeptNo |
-+-------+---------+--------+-----+-----+----------+--------+
-|     2 | Smitha  | F      |  20 |   2 |   452538 | CSC    |
-|     3 | Smith   | M      |  30 |   4 |    45318 | IT     |
-+-------+---------+--------+-----+-----+----------+--------+
-2 rows in set (0.00 sec)
-mysql> select * from course;
-+----------+-----------+---------------+-------+-----------+
-| courseno | RegNo     | course_Sub    | marks | assesment |
-+----------+-----------+---------------+-------+-----------+
-|        4 | 192124112 | AI            |    75 |      NULL |
-|        2 | 192124132 | C Programming |    82 |      NULL |
-|        3 | 192124133 | AI            |    58 |        10 |
-|        1 | 192124145 | Maths         |    97 |      NULL |
-|        5 | 192124166 | Maths         |    88 |      NULL |
-|        5 | 192124177 | IT            |    28 |        16 |
-|        2 | 192124187 | DBMS          |    67 |      NULL |
-|        3 | 192124193 | OS            |    69 |      NULL |
-|        4 | 192124199 | IT            |    49 |        13 |
-+----------+-----------+---------------+-------+-----------+
-9 rows in set (0.00 sec)
-mysql> select course_sub, assesment from course where marks > (select avg(marks) from course) order by courseno;
-+---------------+-----------+
-| course_sub    | assesment |
-+---------------+-----------+
-| Maths         |      NULL |
-| C Programming |      NULL |
-| OS            |      NULL |
-| AI            |      NULL |
-| Maths         |      NULL |
-+---------------+-----------+
-5 rows in set (0.06 sec)
+mysql> use sse;
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_sse |
++---------------+
+| bin           |
+| empdepartment |
+| empdept       |
+| employee      |
+| mentees       |
+| student       |
+| studepartment |
+| t             |
++---------------+
+8 rows in set (0.01 sec)
+mysql> select*from mentees;
++-----------+---------+------+---------+------------+-------+---------+
+| Regno     | Name    | Dept | Address | Fathername | Marks | subject |
++-----------+---------+------+---------+------------+-------+---------+
+| 192011090 | Gowtham | CSE  | Chennai | moorthi    |    99 | DBMS    |
+| 192011079 | arun    | BME  | nellore | muthu      |    91 | BIOEVS  |
+| 192011095 | Harish  | ECE  | Madurai | Kannan     |    95 | PDSD    |
+| 192211080 | Dhivya  | ECE  | Tirupur | Ramesh     |    91 | PDSD    |
++-----------+---------+------+---------+------------+-------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select*from mentees order by Name;
++-----------+---------+------+---------+------------+-------+---------+
+| Regno     | Name    | Dept | Address | Fathername | Marks | subject |
++-----------+---------+------+---------+------------+-------+---------+
+| 192011079 | arun    | BME  | nellore | muthu      |    91 | BIOEVS  |
+| 192211080 | Dhivya  | ECE  | Tirupur | Ramesh     |    91 | PDSD    |
+| 192011090 | Gowtham | CSE  | Chennai | moorthi    |    99 | DBMS    |
+| 192011095 | Harish  | ECE  | Madurai | Kannan     |    95 | PDSD    |
++-----------+---------+------+---------+------------+-------+---------+
+4 rows in set (0.01 sec)
+mysql> select*from mentees group by Marks;
++-----------+---------+------+---------+------------+-------+---------+
+| Regno     | Name    | Dept | Address | Fathername | Marks | subject |
++-----------+---------+------+---------+------------+-------+---------+
+| 192011090 | Gowtham | CSE  | Chennai | moorthi    |    99 | DBMS    |
+| 192011079 | arun    | BME  | nellore | muthu      |    91 | BIOEVS  |
+| 192011095 | Harish  | ECE  | Madurai | Kannan     |    95 | PDSD    |
++-----------+---------+------+---------+------------+-------+---------+
+3 rows in set (0.01 sec)
+
+mysql> select*from mentees group by Dept;
++-----------+---------+------+---------+------------+-------+---------+
+| Regno     | Name    | Dept | Address | Fathername | Marks | subject |
++-----------+---------+------+---------+------------+-------+---------+
+| 192011090 | Gowtham | CSE  | Chennai | moorthi    |    99 | DBMS    |
+| 192011079 | arun    | BME  | nellore | muthu      |    91 | BIOEVS  |
+| 192011095 | Harish  | ECE  | Madurai | Kannan     |    95 | PDSD    |
++-----------+---------+------+---------+------------+-------+---------+
+3 rows in set (0.00 sec)
+mysql> select*from mentees having Marks>95;
++-----------+---------+------+---------+------------+-------+---------+
+| Regno     | Name    | Dept | Address | Fathername | Marks | subject |
++-----------+---------+------+---------+------------+-------+---------+
+| 192011090 | Gowtham | CSE  | Chennai | moorthi    |    99 | DBMS    |
++-----------+---------+------+---------+------------+-------+---------+
+1 row in set (0.00 sec)
